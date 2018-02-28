@@ -3,6 +3,11 @@ import { PropTypes } from 'prop-types'
 
 
 class Book extends Component {
+
+  changeShelf = (e) => {
+    this.props.onShelfChange(e.target.value)
+  }
+  
   render(){
     const imageURL = this.props.imageURL.thumbnail || this.props.imageURL.smallThumbnail
     return (
@@ -16,7 +21,7 @@ class Book extends Component {
               }}>
             </div>
             <div className="book-shelf-changer">
-              <select>
+              <select onChange={this.changeShelf} value={this.props.shelf}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>

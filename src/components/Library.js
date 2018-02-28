@@ -32,11 +32,14 @@ class Library extends Component {
               </div>
               <div className="list-books-content">
                 <div>
-                  { shelves.map((shelf,index)=> (
+                  { shelves.map((shelf,index) => (
                     <BookShelf
                       title={shelf.title}
                       key={index}
                       books={books.filter((book) => book.shelf === shelf.name)}
+                      onShelfChange={(id,shelf) => {
+                        this.props.onShelfChange(id,shelf)
+                      }}
                     />
                   )) }
                 </div>

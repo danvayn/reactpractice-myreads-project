@@ -17,33 +17,40 @@ class BooksApp extends Component {
   }
 
   getBooks = () => {
-    BooksAPI.getAll().then((books) => this.setState({ books }))
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
   }
 
-  changeShelf = () => {
-
-  }
+  changeShelf = (id,shelf) => {
+    BooksAPI.update({id},shelf).then(() => {
+      this.getBooks()
+      // TODO: update book shelf without making an external API call
+    })
+}
 
   render() {
     return (
       <div className="app">
-        <Route path="/search"
-            render={() => (
-              <BookSearch
-                books={this.state.books}
-              />
-            )}
-          />
-
           <Route
             exact
             path="/"
             render={()=>(
               <Library
                 books={this.state.books}
+                onShelfChange={(id,shelf) => {
+                  this.changeShelf(id,shelf)
+                }}
               />
             )}
           />
+        <Route path="/search"
+          render={() => (
+            <BookSearch
+              books={this.state.books}
+            />
+          )}
+        />
       </div>
     )
   }
