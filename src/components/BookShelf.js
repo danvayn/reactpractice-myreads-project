@@ -3,8 +3,13 @@ import { PropTypes } from 'prop-types'
 
 import Book from './Book'
 
+/**
+  Component description: BookShelf is used to display a collection of books.
+*/
+
 class BookShelf extends Component {
 
+  //a Title must be passed but the books array is allowed to be empty incase the shelves are empty.
   static propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array,
@@ -27,8 +32,7 @@ class BookShelf extends Component {
                 shelf={book.shelf || "none"}
                 onShelfChange={(shelf) => {
                   this.props.onShelfChange(book,shelf)
-                }}
-              />
+              }}/>
             ))}
           </ol>
         </div>

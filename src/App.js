@@ -6,6 +6,12 @@ import './App.css'
 import BookSearch from './components/BookSearch'
 import Library from './components/Library'
 
+/*
+  App code here. on mount, a call is made to the API to get the starter books.
+  Then, the books are displayed via rendering the Library. If /search is navigated
+  to BookSearch is rendered.
+*/
+
 class BooksApp extends Component {
 
   state = {
@@ -22,6 +28,8 @@ class BooksApp extends Component {
     })
   }
 
+  //The main function for changing bookshelves. Most other components have this
+  //function passed to them in order to update book shelves so as to keep code DRY.
   changeShelf = (book,shelf) => {
     BooksAPI.update(book,shelf).then(() => {
       this.getBooks()

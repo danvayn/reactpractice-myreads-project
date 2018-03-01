@@ -4,6 +4,14 @@ import { PropTypes } from 'prop-types'
 //To handle the event of a missing cover image.
 import noCover from '../icons/no-cover-image.png'
 
+/**
+  component description: a component that represents books
+
+  dropdown functionality:
+    value is set to shelf props. in Search, shelf is automatically set to "none"
+    if there isn't a shelf chosen for the book displayed.
+*/
+
 class Book extends Component {
 
   static propTypes = {
@@ -19,8 +27,12 @@ class Book extends Component {
   }
 
   render(){
-    const imageLinks = this.props.imageURL
-    const imageURL = imageLinks && imageLinks.thumbnail ? imageLinks.thumbnail : noCover
+    const imgLink = this.props.imageURL
+
+    //if no imageURL is found, a missing cover image placeholder will be shown
+    const imageURL = imgLink && imgLink.thumbnail ? imgLink.thumbnail : noCover
+
+    //if no author is found, the books Author will display as "Unkown Author"
     const author = this.props.author ? this.props.author : ["Unkown Author"]
     return (
       <li>

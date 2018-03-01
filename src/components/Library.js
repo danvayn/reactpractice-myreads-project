@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom'
 
 import BookShelf from './BookShelf'
 
+/**
+  Component description: This component basically represents the main page for
+  the app.
+
+  The three shelve types are defined here for the front page.
+
+  This component also has a search link at the bottom of the render.
+*/
+
 class Library extends Component {
 
   static propTypes = {
@@ -56,9 +65,7 @@ class Library extends Component {
           </div>
         </div>
         <div className="open-search">
-          <Link
-            to="/search"
-          >Search</Link>
+          <Link to="/search">Search</Link>
         </div>
       </div>
     )
