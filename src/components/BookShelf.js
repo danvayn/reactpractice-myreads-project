@@ -5,6 +5,12 @@ import Book from './Book'
 
 class BookShelf extends Component {
 
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    books: PropTypes.array,
+    onShelfChange: PropTypes.func.isRequired
+  }
+
   render(){
     const books = this.props.books
     return(
@@ -18,7 +24,7 @@ class BookShelf extends Component {
                 title={book.title}
                 author={book.authors}
                 key={``.concat(book.id,index)}
-                shelf={book.shelf}
+                shelf={book.shelf || "none"}
                 onShelfChange={(shelf) => {
                   this.props.onShelfChange(book,shelf)
                 }}

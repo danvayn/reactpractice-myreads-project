@@ -7,27 +7,35 @@ import BookShelf from './BookShelf'
 
 class BookSearch extends Component {
 
+  static propTypes = {
+    bookArchive: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      shelf: PropTypes.string.isRequired,
+      imageLinks: PropTypes.object.isRequired,
+      authors: PropTypes.arrayOf(PropTypes.string.isRequired),
+      id: PropTypes.string.isRequired
+    })),
+    onShelfChange: PropTypes.func.isRequired
+  }
+
+
   state = {
     books: [],
     query: '',
     error: ''
   }
 
-  collectBooks = (books) => {
-    let bookLibrary = this.props.books
-    for (let book of bookLibrary) {
-      book.shelf = "none"
-    }
-
-    for (let book of books) {
-      for (let libraryBook of bookLibrary) {
-        if (libraryBook.id === book.id) {
-          book.shelf = libraryBook.shelf
+  collectBooks = (book,bookArchive) => {
+    return book.map((book)=>{
+      bookArchive.forEach((archivedBook)=>{
+        if(archivedBook.id === book.id){
+          book.shelf = archivedBook.shelf
+          return
         }
-      }
-    }
-  return books
-}
+      })
+      return book
+    })
+  }
 
   updateQuery = (e) => {
     const query = e.target.value
@@ -39,8 +47,7 @@ class BookSearch extends Component {
     if (query.length !== 0) {
       BooksAPI.search(query, 10).then((books) => {
         if(books.length > 0){
-          books = books.filter((book) => (book.imageLinks))
-          books = this.collectBooks(books)
+          books = this.collectBooks(books, this.props.bookArchive)
           this.setState({books: books, error: ''})
         } else {
           this.setState({books: [], error: 'show'})
@@ -49,10 +56,6 @@ class BookSearch extends Component {
     } else {
       this.setState({books: [], query: ''})
     }
-  }
-
-  resetBooks = () => {
-    this.setState({books: this.props.books, query: ''})
   }
 
   render() {
@@ -81,18 +84,16 @@ class BookSearch extends Component {
             books={books}
             onShelfChange={(id, shelf) => {
               this.props.onShelfChange(id, shelf)
-            }}
-          />
+          }}/>
         )}
-        {this.state.error === "show" &&  books.length === 0 && (
+        { this.state.error === "show" && books.length === 0 && (
           <div style={{marginTop: 100}}>
-          <BookShelf
-            title="No Results Found"
-            books={books}
-            onShelfChange={(id, shelf) => {
-              this.props.onShelfChange(id, shelf)
-            }}
-          />
+            <BookShelf
+              title="No Results Found"
+              books={books}
+              onShelfChange={(id, shelf) => {
+                this.props.onShelfChange(id, shelf)
+            }}/>
           </div>
         )}
       </div>

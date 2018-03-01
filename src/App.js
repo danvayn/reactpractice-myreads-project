@@ -25,7 +25,6 @@ class BooksApp extends Component {
   changeShelf = (book,shelf) => {
     BooksAPI.update(book,shelf).then(() => {
       this.getBooks()
-      // TODO: update book shelf without having to make a get call to booksAPI
     })
 }
 
@@ -45,15 +44,14 @@ class BooksApp extends Component {
               />
             )}
           />
-        <Route path="/search"
+        <Route exact path="/search"
           render={({ history }) => (
             <BookSearch
-              books={this.state.books}
-              onShelfChange = {(book,shelf) => {
+              bookArchive={this.state.books}
+              onShelfChange={(book,shelf) => {
                 this.changeShelf(book,shelf)
                 history.push('/')
-              }}
-            />
+              }}/>
           )}
         />
       </div>

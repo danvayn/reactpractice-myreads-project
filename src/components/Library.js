@@ -6,6 +6,17 @@ import BookShelf from './BookShelf'
 
 class Library extends Component {
 
+  static propTypes = {
+    books: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      shelf: PropTypes.string.isRequired,
+      imageLinks: PropTypes.object.isRequired,
+      authors: PropTypes.arrayOf(PropTypes.string.isRequired),
+      id: PropTypes.string.isRequired,
+    })),
+    onShelfChange: PropTypes.func.isRequired
+  }
+
   shelves = [
     {
       name: `currentlyReading`,
