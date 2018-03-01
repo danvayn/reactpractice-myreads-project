@@ -27,28 +27,28 @@ class Library extends Component {
 
     return (
       <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  { shelves.map((shelf,index) => (
-                    <BookShelf
-                      title={shelf.title}
-                      key={index}
-                      books={books.filter((book) => book.shelf === shelf.name)}
-                      onShelfChange={(id,shelf) => {
-                        this.props.onShelfChange(id,shelf)
-                      }}
-                    />
-                  )) }
-                </div>
-              </div>
-              <div className="open-search">
-                <Link
-                  to="/search"
-                >Search</Link>
-              </div>
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+        <div className="list-books-content">
+          <div>
+            { shelves.map((shelf,index) => (
+              <BookShelf
+                title={shelf.title}
+                key={index}
+                books={books.filter((book) => book.shelf === shelf.name)}
+                onShelfChange={(book,shelf) => {
+                  this.props.onShelfChange(book,shelf)
+                }}
+              />
+            )) }
+          </div>
+        </div>
+        <div className="open-search">
+          <Link
+            to="/search"
+          >Search</Link>
+        </div>
       </div>
     )
   }

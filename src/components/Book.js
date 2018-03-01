@@ -7,7 +7,7 @@ class Book extends Component {
   changeShelf = (e) => {
     this.props.onShelfChange(e.target.value)
   }
-  
+
   render(){
     const imageURL = this.props.imageURL.thumbnail || this.props.imageURL.smallThumbnail
     return (

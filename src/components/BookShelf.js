@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types'
 import Book from './Book'
 
 class BookShelf extends Component {
+
   render(){
     const books = this.props.books
     return(
@@ -19,7 +20,7 @@ class BookShelf extends Component {
                 key={``.concat(book.id,index)}
                 shelf={book.shelf}
                 onShelfChange={(shelf) => {
-                  this.props.onShelfChange(book.id,shelf)
+                  this.props.onShelfChange(book,shelf)
                 }}
               />
             ))}
