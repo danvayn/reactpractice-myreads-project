@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
 //To handle the event of a missing cover image.
-import noCover from '../icons/no-cover-image.png'
+import missingCover from '../icons/no-cover-image.png'
 
 /**
   component description: a component that represents books
@@ -30,7 +30,7 @@ class Book extends Component {
     const imgLink = this.props.imageURL
 
     //if no imageURL is found, a missing cover image placeholder will be shown
-    const imageURL = imgLink && imgLink.thumbnail ? imgLink.thumbnail : noCover
+    const imageURL = imgLink && imgLink.thumbnail ? imgLink.thumbnail : missingCover
 
     //if no author is found, the books Author will display as "Unkown Author"
     const author = this.props.author ? this.props.author : ["Unkown Author"]
